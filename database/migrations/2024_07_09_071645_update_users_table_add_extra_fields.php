@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('address')->default('');
             $table->integer('age')->default(2);
             $table->string('gender')->default('');
-            $table->string('password')->default('');
+
+            // $table->string('password')->default('');
         });
     }
 

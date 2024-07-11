@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    public function register(registerRequest $request)
+    public function register(RegisterRequest $request)
     {
 
         $user = User::create([
@@ -27,6 +27,6 @@ class RegisterController extends Controller
 
 
         //return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
-        return new registerResource($user);
+        return new RegisterResource($user);
     }
 }

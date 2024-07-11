@@ -6,8 +6,4 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\AuthCheckController;
 
 Route::post('login', [LoginController::class, 'login']);
-Route::middleware('auth:sanctum')->post('check-auth', [AuthCheckController::class, 'checkAuth']);
-
-/* Route::get('/user', function (Request $request) {
-     return $request->user();
- })->middleware('auth:sanctum');*/
+Route::middleware('auth:sanctum')->get('check-auth', [AuthCheckController::class, 'checkAuth']);

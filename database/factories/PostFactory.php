@@ -19,6 +19,7 @@ class PostFactory extends Factory
             'title' => fake()->sentence,
             'body' => fake()->paragraph,
             'image' => fake()->imageUrl(),
+            'user_id' => \App\Models\User::factory(),
             'created_at' => now(),
             'updated_at' => now(),
         ];

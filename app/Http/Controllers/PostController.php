@@ -54,21 +54,10 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, $id)
     {
-        //$userId = auth()->user()->id;
+
         $post = Post::findOrFail($id);
         Gate::authorize('modify', $post);
-        //$post = Post::find($id);
 
-
-        // $post->title = $request->title;
-        // $post->body = $request->body;
-        // $post->image_url = $request->image_url;
-        // $post->save();
-        // if ($post->save()) {
-        //     return new PostResource($post);
-        // }
-
-        // Update the post attributes
         $post->update([
             'title' => $request->title,
             'body' => $request->body,
@@ -77,11 +66,6 @@ class PostController extends Controller
 
 
         return new PostResource($post);
-
-        // $product = Post::findorFail($post);
-
-
-
     }
 
     /**

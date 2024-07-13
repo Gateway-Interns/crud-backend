@@ -11,8 +11,8 @@ Route::get('/index', [PostController::class, 'index']);
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    //Route::post('/post', [PostController::class, 'store']);
-    //Route::post('/post/{id}', [PostController::class, 'show']);
+
+    //Route::post('/post/{id}', [PostController::class, 'show']);// showing by id
     Route::post('/store', [PostController::class, 'store']);
     Route::patch('/update/{id}', [PostController::class, 'update']);
 });

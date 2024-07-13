@@ -9,4 +9,4 @@ use App\Http\Controllers\Auth\PostController;
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('login', [LoginController::class, 'login']);
 Route::middleware('auth:sanctum')->get('check-auth', [AuthCheckController::class, 'checkAuth']);
-Route::get('posts/{post}', [PostController::class, 'show']);
+Route::middleware('auth:sanctum')->get('posts/{post}', [PostController::class, 'show']);

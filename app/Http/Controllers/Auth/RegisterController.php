@@ -20,13 +20,14 @@ class RegisterController extends Controller
             'email' => $request->email,
             'address' => $request->address,
             'password' => Hash::make($request->password), // Hash the password
-            // 'password' => $request->password,
+
             'age' => $request->age,
             'gender' => $request->gender,
         ]);
-
+        $token = $user->createToken($request->full_name)->plainTextToken;
 
         //return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
-        return new RegisterResource($user);
+        return (new RegisterResource($user))->additional(['token' => $token]);
+        //  return new RegisterResource($user);
     }
 }

@@ -17,9 +17,14 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->name(),
-            'body' => fake()->name(),
-            'image_url' => fake()->name(),
+
+
+            'title' => fake()->sentence,
+            'body' => fake()->paragraph,
+            'image' => fake()->imageUrl(),
+            'user_id' => \App\Models\User::factory(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

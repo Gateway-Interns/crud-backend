@@ -26,8 +26,8 @@ class RegisterController extends Controller
         ]);
         $token = $user->createToken($request->full_name)->plainTextToken;
 
-        //return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
+        
         return (new RegisterResource($user))->additional(['token' => $token]);
-        //  return new RegisterResource($user);
+     
     }
 }

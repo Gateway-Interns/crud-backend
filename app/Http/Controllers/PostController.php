@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
-
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
@@ -20,7 +19,7 @@ class PostController extends Controller
  
     public function store(StorePostRequest $request)
     {
-        Log::info('User ID:');
+
         $posts = $request->user()->posts()->create([
             'title' => $request->title,
             'body' => $request->body,
@@ -30,20 +29,20 @@ class PostController extends Controller
         return new PostResource($posts);
     }
 
-    public function update(UpdatePostRequest $request, $id)
+    public function update(UpdatePostRequest $request,Post $id)
     {
 
-        $post = Post::findOrFail($id);
-        Gate::authorize('modify', $post);
+        
+        Gate::authorize('modify', $id);
 
-        $post->update([
+        $id->update([
             'title' => $request->title,
             'body' => $request->body,
             'image_url' => $request->image_url,
         ]);
 
 
-        return new PostResource($post);
+        return new PostResource($id);
     }
 
   

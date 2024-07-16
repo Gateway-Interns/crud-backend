@@ -1,6 +1,6 @@
 <?php
 use App\Http\Controllers\Auth\AuthCheckController;
-use App\Http\Controllers\Auth\PostController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;

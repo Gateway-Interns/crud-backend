@@ -6,16 +6,20 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\User;
 use App\Http\Resources\Auth\PostResource;
-
+use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function show(Post $post)
     {
         return new PostResource($post);
     }
-    public function postsByUser(User $userId)
+    public function postsByUser(Request $request,User $userId)
     {
-       $posts = $userId->posts()->Paginate(4);
+          $perPage = $request['perPage'];
+          $page= $request['page'];
+
+        $posts = $userId->posts()->paginate($perPage, page: $page);
+
         return PostResource::collection($posts);
     }
 }

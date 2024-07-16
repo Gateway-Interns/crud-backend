@@ -17,17 +17,7 @@ use Illuminate\Support\Facades\Gate;
 class PostController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return Post::all();
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+ 
     public function store(StorePostRequest $request)
     {
         Log::info('User ID:');
@@ -40,18 +30,6 @@ class PostController extends Controller
         return new PostResource($posts);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        $post = Post::findorFail($id);
-        return new PostResource($post);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdatePostRequest $request, $id)
     {
 
@@ -68,11 +46,5 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Post $post)
-    {
-        //
-    }
+  
 }

@@ -11,6 +11,6 @@ Route::get('/user', function (Request $request) {
 Route::delete('/user/{id}',[App\Http\Controllers\DeleteController::class,'deletebyid']);
 
 
-///
+/// hello this is a new chane 
 
 ///

@@ -13,12 +13,12 @@ class PostController extends Controller
     {
         return new PostResource($post);
     }
-    public function postsByUser(Request $request,User $userId)
+    public function postsByUser(Request $request,User $user)
     {
           $perPage = $request['perPage'];
           $page= $request['page'];
 
-        $posts = $userId->posts()->paginate($perPage, page: $page);
+        $posts = $user->posts()->paginate($perPage, page: $page);
 
         return PostResource::collection($posts);
     }

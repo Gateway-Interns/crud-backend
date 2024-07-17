@@ -2,24 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\User;
-use App\Http\Resources\Auth\PostResource;
-use Illuminate\Http\Request;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
+use App\Http\Resources\PostResource;
+use GuzzleHttp\Middleware;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Support\Facades\Gate;
+
+
 class PostController extends Controller
 {
-    public function show(Post $post)
+
+
+    public function store(StorePostRequest $request)
     {
-        return new PostResource($post);
+
+        $posts = $request->user()->posts()->create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'image_url' => $request->image_url,
+        ]);
+
+        return new PostResource($posts);
     }
-    public function postsByUser(Request $request,User $user)
+
+    public function update(UpdatePostRequest $request, Post $id)
     {
-          $perPage = $request['perPage'];
-          $page= $request['page'];
 
-        $posts = $user->posts()->paginate($perPage, page: $page);
 
-        return PostResource::collection($posts);
+        Gate::authorize('modify', $id);
+
+        $id->update([
+            'title' => $request->title,
+            'body' => $request->body,
+            'image_url' => $request->image_url,
+        ]);
+
+
+        return new PostResource($id);
     }
 }

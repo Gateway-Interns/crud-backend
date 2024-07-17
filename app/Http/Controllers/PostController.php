@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Gate;
 class PostController extends Controller
 {
 
- 
+
     public function store(StorePostRequest $request)
     {
 
@@ -29,10 +29,10 @@ class PostController extends Controller
         return new PostResource($posts);
     }
 
-    public function update(UpdatePostRequest $request,Post $id)
+    public function update(UpdatePostRequest $request, Post $id)
     {
 
-        
+
         Gate::authorize('modify', $id);
 
         $id->update([
@@ -44,6 +44,4 @@ class PostController extends Controller
 
         return new PostResource($id);
     }
-
-  
 }

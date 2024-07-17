@@ -31,8 +31,6 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request,Post $id)
     {
-
-        
         Gate::authorize('modify', $id);
 
         $id->update([

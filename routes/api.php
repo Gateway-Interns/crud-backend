@@ -11,5 +11,5 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/check-auth', [AuthCheckController::class, 'checkAuth']);
     Route::get('/posts/{post}', [PostController::class, 'show']);
-    Route::get('users/{user_id}/posts', [PostController::class, 'postsByUser']);
+    Route::get('users/{user}/posts', [PostController::class, 'postsByUser']);
 });

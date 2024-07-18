@@ -29,7 +29,7 @@ class CreateUserNotification extends Command
     {
         $users = User::all();
         foreach ($users as $user) {
-            $user->notify(new NewReleaseNotification());
+            $user->notify(new NewReleaseNotification($user));
         }
         $this->info('new notf sent to all users.');
     }

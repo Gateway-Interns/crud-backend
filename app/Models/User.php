@@ -19,7 +19,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-
         'full_name',
         'email',
         'password',
@@ -50,10 +49,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
+
     public function markNotificationAsRead($notificationId)
     {
         $this->notifications()->where('id', $notificationId)->update(['read_at' => now()]);

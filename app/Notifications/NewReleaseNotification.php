@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,12 +12,14 @@ class NewReleaseNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
+    protected $user;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -26,20 +29,9 @@ class NewReleaseNotification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['mail', 'database'];
+        return [ 'database'];
     }
-
-    /**
-     * Get the mail representation of the notification.
-     */
-    public function toMail(object $notifiable): MailMessage
-    {
-        return (new MailMessage)
-            ->line('A new Product Release is out there CHECK IT OUT BRAM!.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
-    }
-
+    
     /**
      * Get the array representation of the notification.
      *
@@ -48,8 +40,10 @@ class NewReleaseNotification extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'message' => 'a new product is out there',
-            'url' => url('/'),
+            'user_id' => $this->user->user_id,
+            'name' => $this->user->name,
+            'email' => $this->user->email,
+         
         ];
     }
 }

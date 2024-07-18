@@ -3,9 +3,9 @@
 use App\Http\Controllers\Auth\AuthCheckController;
 
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [RegisterController::class, 'register']);
@@ -19,9 +19,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/store', [PostController::class, 'store']);
     Route::patch('/update/{id}', [PostController::class, 'update']);
 
-    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
-    Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
-    Route::post('/notifications/{id}/unread', [NotificationController::class, 'markAsUnread']);
-    Route::delete('/notifications/{id}', [NotificationController::class, 'deleteNotification']);
+
+    Route::prefix('notifications')->group(function () {
+        Route::post('{id}/read', [NotificationController::class, 'markAsRead']);
+        Route::post('read-all', [NotificationController::class, 'markAllAsRead']);
+        Route::post('{id}/unread', [NotificationController::class, 'markAsUnread']);
+        Route::delete('{id}', [NotificationController::class, 'deleteNotification']);
+    });
 // test comment
 });

@@ -13,7 +13,8 @@ class NotificationPolicy
      */
     public function check(User $user, Notification $notification): Response
     {
+        $notificationData = $notification->data;
 
-        return $user->id === $notification->id ? Response::allow() : Response::deny('notificaiton doesnt bleong to you'.  $notification->id);
+        return $user->id === $notificationData['id'] ? Response::allow() : Response::deny('notificaiton doesnt bleong to you' .   $notificationData['id']);
     }
 }

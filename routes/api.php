@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Notifications\NewReleaseNotification;
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('login', [LoginController::class, 'login']);
@@ -21,10 +23,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::prefix('notifications')->group(function () {
-        Route::post('{id}/read', [NotificationController::class, 'markAsRead']);
+        Route::post('{notification}/read', [NotificationController::class, 'markAsRead']);
         Route::post('read-all', [NotificationController::class, 'markAllAsRead']);
-        Route::post('{id}/unread', [NotificationController::class, 'markAsUnread']);
-        Route::delete('{id}', [NotificationController::class, 'deleteNotification']);
+        Route::post('{notification}/unread', [NotificationController::class, 'markAsUnread']);
+        Route::delete('{notification}', [NotificationController::class, 'deleteNotification']);
     });
-// test comment
+    // test comment
 });

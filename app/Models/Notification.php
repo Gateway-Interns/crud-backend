@@ -8,18 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Notification extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'user_id',
         'title',
         'body',
-        'read',
-        'age',
+        'data',
+        'user_id',
+        'type',
+        'notifiable_type',
+        'notifiable_id',
+        'read_at',
+
     ];
-      // Define relationships
-      public function user()
-      {
-          return $this->belongsTo(User::class);
-      }
-
-
+    // Define relationships
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

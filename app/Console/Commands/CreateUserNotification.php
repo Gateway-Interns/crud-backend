@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\User;
 use Illuminate\Console\Command;
 use App\Notifications\NewReleaseNotification;
+use App\Jobs\SendNotificationJob;
 
 class CreateUserNotification extends Command
 {
@@ -29,6 +30,7 @@ class CreateUserNotification extends Command
     {
         $users = User::all();
         foreach ($users as $user) {
+
             $user->notify(new NewReleaseNotification($user));
         }
         $this->info('new notf sent to all users.');

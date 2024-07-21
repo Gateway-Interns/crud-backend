@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Auth\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;              
@@ -10,12 +10,11 @@ class DeleteController extends Controller
     
     public function deletebyid(Request $request, User $user)
     {
-        if ($user) {
+  
             $user->delete();
-            return response()->json($user);
-        }
+            return response()->json(['message' => 'User deleted successfully.'], 200);
 
-       
+    
     }
 }
 

@@ -11,15 +11,11 @@ class LogoutController extends Controller
     {
       
         $user = $request->user();
+        $user->tokens()->delete();
+        return response()->json(['message' => 'logged out']);
+        
 
-        if ($user) {
-           
-            $user->tokens()->delete();
-
-            return response()->json(['message' => 'Successfully logged out']);
-        }
-
-        return response()->json(['message' => 'Not authenticated '], 401);
+      
     }
 
     

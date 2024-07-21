@@ -29,9 +29,9 @@ class NewReleaseNotification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return [ 'database'];
+        return ['database'];
     }
-    
+
     /**
      * Get the array representation of the notification.
      *
@@ -39,11 +39,11 @@ class NewReleaseNotification extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
+
         return [
-            'user_id' => $this->user->user_id,
-            'name' => $this->user->name,
+            'id' => $this->user->id,
+            'full_name' => $this->user->full_name,
             'email' => $this->user->email,
-         
         ];
     }
 }

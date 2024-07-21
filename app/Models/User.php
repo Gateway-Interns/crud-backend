@@ -25,6 +25,7 @@ class User extends Authenticatable
         'address',
         'age',
         'gender',
+
     ];
 
     /**
@@ -55,6 +56,7 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+
     public function markNotificationAsRead($notificationId)
     {
         $this->notifications()->where('id', $notificationId)->update(['read_at' => now()]);
@@ -65,7 +67,11 @@ class User extends Authenticatable
     }
     public function markNotificationAsunread($notificationId)
     {
-        $this->notifications()->whrere('id', $notificationId)->update(['read_at' => null]);
+        $notification = $this->notifications()->where('id', $notificationId)->first();
+
+        if ($notification) {
+            $notification->update(['read_at' => null]);
+        }
     }
     public function deleteNotification($notificationId)
     {

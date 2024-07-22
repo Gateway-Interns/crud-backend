@@ -1,23 +1,35 @@
 <?php
-namespace App\Http\Controllers\Auth;
+namespace App\Mail;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\URL;
 
-class VerificationController extends Controller
+class VerifyEmail extends Mailable
 {
-    public function verify(Request $request, $userId)
+    use Queueable, SerializesModels;
+
+    public $user;
+    public $verificationUrl;
+
+    public function __construct($user)
     {
+        $this->user = $user;
+        $this->verificationUrl = URL::temporarySignedRoute(
+            'verification.verify',
+            now()->addHours(24),
+            ['user' => $user->id]
+        );
+    }
 
-        if (!$request->hasValidSignature()) {
-            return response()->json(['message' => 'Invalid or expired URL.'], 400);
-        }
-
-
-        $user = User::findOrFail($userId);
-        $user->markEmailAsVerified();
-
-        return response()->json(['message' => 'Account verified successfully.']);
+    public function build()
+    {
+        return $this->subject('Verify Your Email Address')
+                    ->view('emails.verify')
+                    ->with([
+                        'verificationUrl' => $this->verificationUrl,
+                    ]);
     }
 }

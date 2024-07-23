@@ -10,13 +10,12 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\DeleteController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\PostController;
-
-
-
-
+use App\Http\Controllers\Auth\PasswordUpdateController;
+use App\Http\Controllers\MyProfileController;   //user inormation
+use App\Http\Controllers\Auth\UpdateProfileController;
 
 Route::post('/register', [RegisterController::class, 'register']);
-Route::post('login', [LoginController::class, 'login']);
+ Route::post('login', [LoginController::class, 'login']);
 
 
 
@@ -28,6 +27,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('users/{user}/posts', [PostController::class, 'postsByUser']);
     Route::delete('/user/{user}',[DeleteController::class, 'deletebyid']);
     Route::post('/logout', [LogoutController::class, 'logout']);
+    Route::patch('updateProfile/{id}', [UpdateProfileController::class, 'update']);
+    Route::put('/user/{id}/password', [PasswordUpdateController::class, 'updatePassword']);  //update password
+   
 });
 
-//
+Route::get('/myprofile', [MyProfileController::class, 'getUserInfo']);  //user information
+

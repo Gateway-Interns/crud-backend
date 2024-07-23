@@ -18,7 +18,7 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
-    public function postsByUser(Request $request,User $user)
+    public function postsByUser(Request $request, User $user)
     {
         $perPage = $request['perPage'];
         $page = $request['page'];
@@ -51,5 +51,12 @@ class PostController extends Controller
         ]);
 
         return new PostResource($id);
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+
+        return response()->json(['message' => 'Post deleted successfully']);
     }
 }

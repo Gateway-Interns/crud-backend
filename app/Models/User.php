@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Contracts\Auth\CanResetPassword;
 
 
 class User extends Authenticatable
@@ -76,5 +77,9 @@ class User extends Authenticatable
     public function deleteNotification($notificationId)
     {
         $this->notifications()->where('id', $notificationId)->delete();
+    }
+    public function sendPassowrdResetNotification($token){
+        $url = 'http://127.0.0.1:8000/reset-password'.$token;
+     //   $this ->notify(new ResetPasswordNotification(url))
     }
 }

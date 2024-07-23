@@ -16,6 +16,6 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
     Laravel is a framework which gives you a great and a wide options to implement, firstly if you can we have a command which sends notification to all the users, but be warned that there should be some users registered!
     in CreateUserNotification.php file you can see some codes the most important one is what you command should be like in the terminal the Signature, notify:new-release, which sends a new notification release to all the registered users, through handle method.
 
-    In handle method we have NewReleaseNtofication, which is a class you can see we have used Queue, for more detail on queue you can check this article: <a href="https://laravel.com/docs/11.x/queues"> 
+    In handle method we have NewReleaseNtofication, which is a class you can see we have used Queue, for more detail on queue you can check this article:
  
 

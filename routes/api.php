@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\DeleteController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\ResetPassword;
+
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
@@ -17,8 +17,8 @@ use App\Http\Controllers\PostController;
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('login', [LoginController::class, 'login']);
-Route::post('/forget',[ResetPassword::class,'forget']);
-Route::post('/reset',[ResetPassword::class,'reset'])->name('password.reset');
+Route::post('/forget',[ResetPasswordController::class,'forget']);
+Route::post('/reset',[ResetPasswordController::class,'reset'])->name('password.reset');
 //Route::get('/verification.verify',[ResetPassword::class,'verify'])->name('verification.verify');
 
 

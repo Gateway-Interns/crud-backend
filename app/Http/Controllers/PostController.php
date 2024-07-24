@@ -7,9 +7,11 @@ use App\Models\User;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
+use Illuminate\Support\Facades\Log;
+
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -18,7 +20,7 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
-    public function postsByUser(Request $request,User $user)
+    public function postsByUser(Request $request, User $user)
     {
         $perPage = $request['perPage'];
         $page = $request['page'];

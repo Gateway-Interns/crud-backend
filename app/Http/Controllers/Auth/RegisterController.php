@@ -9,6 +9,7 @@ use App\Http\Resources\Auth\registerResource;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use App\Jobs\SendVerificationEmail;
 
 class RegisterController extends Controller
 {
@@ -24,10 +25,11 @@ class RegisterController extends Controller
             'age' => $request->age,
             'gender' => $request->gender,
         ]);
+
+        SendVerificationEmail::dispatch($user);
+
         $token = $user->createToken($request->full_name)->plainTextToken;
 
-        
         return (new RegisterResource($user))->additional(['token' => $token]);
-     
     }
 }

@@ -18,7 +18,7 @@ class PostFactory extends Factory
         return [
             'title' => fake()->sentence,
             'body' => fake()->paragraph,
-            'image' => fake()->imageUrl(),
+            'image_url' => fake()->imageUrl(),
             'user_id' => \App\Models\User::factory(),
             'created_at' => now(),
             'updated_at' => now(),

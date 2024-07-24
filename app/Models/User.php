@@ -19,13 +19,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-
         'full_name',
         'email',
         'password',
         'address',
         'age',
         'gender',
+
     ];
 
     /**
@@ -50,8 +50,31 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+
+    public function markNotificationAsRead($notificationId)
+    {
+        $this->notifications()->where('id', $notificationId)->update(['read_at' => now()]);
+    }
+    public function markAllNotificationsAsRead()
+    {
+        $this->unreadNotifications->markAsRead();
+    }
+    public function markNotificationAsunread($notificationId)
+    {
+        $notification = $this->notifications()->where('id', $notificationId)->first();
+
+        if ($notification) {
+            $notification->update(['read_at' => null]);
+        }
+    }
+    public function deleteNotification($notificationId)
+    {
+        $this->notifications()->where('id', $notificationId)->delete();
     }
 }

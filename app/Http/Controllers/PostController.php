@@ -13,12 +13,41 @@ use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
+    public function index(Request $request)
+    {
+        $query = Post::query();
+
+        if ($request->filled('user_id')) {
+            $query->where('user_id', $request->user_id);
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'LIKE', "%{$search}%")
+                    ->orWhere('body', 'LIKE', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('created_at')) {
+            $query->whereDate('created_at', $request->created_at);
+        }
+
+        if ($request->filled('order_by') && $request->filled('order_direction')) {
+            $query->orderBy($request->order_by, $request->order_direction);
+        }
+
+        $posts = $query->paginate(4);
+
+        return PostResource::collection($posts);
+    }
+
     public function show(Post $post)
     {
         return new PostResource($post);
     }
 
-    public function postsByUser(Request $request,User $user)
+    public function postsByUser(Request $request, User $user)
     {
         $perPage = $request['perPage'];
         $page = $request['page'];

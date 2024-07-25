@@ -15,7 +15,7 @@ class PostResource extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'image_url' => $this->image_url,
-            'created_at' => $this->created_at->toDateTimeString(),
+            'created_at' => $this->created_at,
         ];
     }
 }

@@ -14,6 +14,9 @@ class Post extends Model
         'body',
         'image_url',
     ];
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -22,9 +22,10 @@ class ResetPasswordController extends Controller
 
                 $status = Password::sendResetLink($request->only('email'));
                 if($status == Password::RESET_LINK_SENT){
-                    return new ResetPasswordResource('Link Sent successfully');
+                    return response()->json(['message' => 'link sent succesfully']);
                 }else{
-                    return new ResetpasswordResource('Link Sent Failed');
+                    return response()->json(['message' => 'link sent failed']);
+
                 }
 
     }
@@ -41,9 +42,9 @@ class ResetPasswordController extends Controller
         );
 
             if($status == Password::PASSWORD_RESET){
-                return new ResetPasswordResource('Password reset successfully.');
+                return response()->json(['message' => 'password reset succesfully']);
             }else{
-                return new ResetPasswordResource('Password reset failed.');
+                return response()->json(['message' => 'password sent failed']);
             }
 
     }

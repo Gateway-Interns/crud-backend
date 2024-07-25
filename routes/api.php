@@ -17,9 +17,8 @@ use App\Http\Controllers\PostController;
 
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('login', [LoginController::class, 'login']);
-Route::post('/forget',[ResetPasswordController::class,'forget']);
-Route::post('/reset',[ResetPasswordController::class,'reset'])->name('password.reset');
-//Route::get('/verification.verify',[ResetPassword::class,'verify'])->name('verification.verify');
+
+
 
 
 
@@ -30,14 +29,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/store', [PostController::class, 'store']);
     Route::patch('/update/{id}', [PostController::class, 'update']);
 
+    Route::post('/forget',[ResetPasswordController::class,'forget']);
+    Route::post('/reset',[ResetPasswordController::class,'reset'])->name('password.reset');
 
-    Route::prefix('notifications')->group(function () {
-        Route::post('{notification}/read', [NotificationController::class, 'markAsRead']);
-        Route::post('read-all', [NotificationController::class, 'markAllAsRead']);
-        Route::post('{notification}/unread', [NotificationController::class, 'markAsUnread']);
-        Route::delete('{notification}', [NotificationController::class, 'deleteNotification']);
-    });
-    // test comment
+
     Route::get('users/{user}/posts', [PostController::class, 'postsByUser']);
     Route::delete('/user/{user}',[DeleteController::class, 'deletebyid']);
   //  Route::post('/logout', [LogoutController::class, 'logout']);

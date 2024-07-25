@@ -16,13 +16,13 @@ class NotificationController extends Controller
     public function markAsRead(Notification $notification)
     {
         $response =  Gate::authorize('check', $notification);
-        Auth::user()->markAllNotificationsAsRead($notification);
-        return new NotificationResource(['message' => 'Notification mark as read.']);
+        Auth::user()->markNotificationAsRead($notification->id);
+        return response()->json(['message' => 'Notification Mark as read']);
     }
     public function markAllAsRead()
     {
         Auth::user()->markAllNotificationsAsRead();
-        return new NotificationResource(['message' => 'Notification mark all as read.']);
+        return response()->json(['message' => 'Notification all marked as read']);
     }
 
 
@@ -30,13 +30,13 @@ class NotificationController extends Controller
     {
         Gate::authorize('check', $notification);
         Auth::user()->markNotificationAsUnread($notification->id);
-        return new NotificationResource(['message' => 'Notification mark all as unread.']);
+        return response()->json(['message' => 'Notification Mark as unread']);
     }
 
     public function deleteNotification(Notification $notification)
     {
         Gate::authorize('check', $notification);
         Auth::user()->deleteNotification($notification->id);
-        return new NotificationResource(['message' => 'Notification deleted.']);
+        return response()->json(['message' => 'Notification deleted']);
     }
 }

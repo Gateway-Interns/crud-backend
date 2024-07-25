@@ -11,7 +11,7 @@ use App\Http\Controllers\Auth\DeleteController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\Auth\PasswordUpdateController;
-use App\Http\Controllers\MyProfileController;   //user inormation
+use App\Http\Controllers\Auth\MyProfileController;   //user inormation
 use App\Http\Controllers\Auth\UpdateProfileController;
 
 Route::post('/register', [RegisterController::class, 'register']);
@@ -29,8 +29,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [LogoutController::class, 'logout']);
     Route::patch('updateProfile/{id}', [UpdateProfileController::class, 'update']);
     Route::put('/user/{id}/password', [PasswordUpdateController::class, 'updatePassword']);  //update password
+    Route::get('/myprofile', [MyProfileController::class, 'getUserInfo']);  //user information
    
 });
 
-Route::get('/myprofile', [MyProfileController::class, 'getUserInfo']);  //user information
+
 

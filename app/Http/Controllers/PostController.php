@@ -81,4 +81,13 @@ class PostController extends Controller
 
         return new PostResource($id);
     }
+
+    public function destroy(Post $post)
+    {
+        Gate::authorize('modify', $post);
+        
+        $post->delete();
+
+        return response()->json(['message' => 'Post deleted successfully']);
+    }
 }

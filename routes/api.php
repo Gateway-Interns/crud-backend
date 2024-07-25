@@ -14,8 +14,6 @@ use App\Http\Controllers\PostController;
 
 
 
-
-
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('login', [LoginController::class, 'login']);
 
@@ -29,10 +27,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::prefix('notifications')->group(function () {
-        Route::post('{notification}/read', [NotificationController::class, 'markAsRead']);
+        Route::post('{notification:id}/read', [NotificationController::class, 'markAsRead']);
         Route::post('read-all', [NotificationController::class, 'markAllAsRead']);
-        Route::post('{notification}/unread', [NotificationController::class, 'markAsUnread']);
-        Route::delete('{notification}', [NotificationController::class, 'deleteNotification']);
+        Route::post('{notification:id}/unread', [NotificationController::class, 'markAsUnread']);
+        Route::delete('{notification:id}', [NotificationController::class, 'deleteNotification']);
     });
     // test comment
     Route::get('users/{user}/posts', [PostController::class, 'postsByUser']);

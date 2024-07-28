@@ -1,35 +1,34 @@
-<?php namespace App\Http\Controllers\Auth;
+<?php 
 
+namespace App\Http\Controllers\Auth;
+
+use App\Models\User;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Resources\UpdatePasswordResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 
-use Exception;
 
 class PasswordUpdateController extends Controller
 {
-    public function updatePassword(Request $request, $id)
+    public function updatePassword(UpdatePasswordRequest $request)
     {
-        $validatedData = $request->validate([
-            'current_password' => ['required', 'string'],
-            'new_password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        
+        $user = Auth::user();
+       
+     
 
-        $user = User::findOrFail($id);
-
-        if (Auth::id() !== $user->id && !Auth::user()->is_admin) {
-            return response()->json(['message' => 'Unauthorized'], 403);
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json(['message' => 'Current password is incorrect']);
         }
 
-        if (!Hash::check($validatedData['current_password'], $user->password)) {
-            return response()->json(['message' => 'Current password is incorrect'], 400);
-        }
-
-        $user->password = Hash::make($validatedData['new_password']);
+        $user->password = Hash::make($request->new_password);
         $user->save();
 
-        return response()->json(['message' => 'Password updated successfully']);
+
+        return new UpdatePasswordResource($user);
+       
     }
 }

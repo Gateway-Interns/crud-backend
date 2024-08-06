@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
+    public function index(Request $request)
+    {
+        $posts = Post::query()
+            ->filterByUserId($request->user_id)
+            ->search($request->search)
+            ->filterByCreatedAt($request->created_at)
+            ->orderByFields($request->order_by, $request->order_direction)
+            ->paginate(4);
+
+        return PostResource::collection($posts);
+    }
+
     public function show(Post $post)
     {
         return new PostResource($post);
@@ -56,7 +68,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         Gate::authorize('modify', $post);
-        
+
         $post->delete();
 
         return response()->json(['message' => 'Post deleted successfully']);
